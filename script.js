@@ -1,5 +1,5 @@
 let score = 0;
-let timeLeft = 300;
+let timeLeft = 75;
 let timer;
 
 function startQuiz(){
@@ -56,3 +56,4 @@ function generateCertificate(){
 
     certStatus.innerText = score >= 8 ? "✔ PASSED" : "❌ FAILED";
 }
+
