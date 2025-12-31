@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Quiz System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="box" id="login">
+    <h2>Student Login</h2>
+    <input type="text" id="studentName" placeholder="Enter Name"><br><br>
+    <button onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<!-- QUIZ -->
+<div class="box hide" id="quiz">
+    <h2>Quiz</h2>
+    <p class="timer">Time Left: <span id="time">075</span> seconds</p>
+
+    <p>1. What does HTML stand for?</p>
+    <input type="radio" name="q1" value="a"> Hyper Text Markup Language<br>
+    <input type="radio" name="q1" value="b"> High Text Machine Language<br>
+    <input type="radio" name="q1" value="c"> Hyper Trainer Marking Language<br>
+    <input type="radio" name="q1" value="d"> Hyper Text Marketing Language<br>
+
+    <p>2. Which tag is used to create a hyperlink?</p>
+    <input type="radio" name="q2" value="a"> &lt;link&gt;<br>
+    <input type="radio" name="q2" value="b"> &lt;href&gt;<br>
+    <input type="radio" name="q2" value="c"> &lt;a&gt;<br>
+    <input type="radio" name="q2" value="d"> &lt;url&gt;<br>
+
+    <p>3. Which tag is used to display image?</p>
+    <input type="radio" name="q3" value="a"> &lt;image&gt;<br>
+    <input type="radio" name="q3" value="b"> &lt;img&gt;<br>
+    <input type="radio" name="q3" value="c"> &lt;pic&gt;<br>
+    <input type="radio" name="q3" value="d"> &lt;src&gt;<br>
+
+    <p>4. Alternate text for image?</p>
+    <input type="radio" name="q4" value="a"> title<br>
+    <input type="radio" name="q4" value="b"> alt<br>
+    <input type="radio" name="q4" value="c"> name<br>
+    <input type="radio" name="q4" value="d"> src<br>
+
+    <p>5. Line break tag?</p>
+    <input type="radio" name="q5" value="a"> &lt;br&gt;<br>
+    <input type="radio" name="q5" value="b"> &lt;lb&gt;<br>
+    <input type="radio" name="q5" value="c"> &lt;break&gt;<br>
+    <input type="radio" name="q5" value="d"> &lt;hr&gt;<br>
+
+    <p>6. CSS is used for?</p>
+    <input type="radio" name="q6" value="a"> Styling<br>
+    <input type="radio" name="q6" value="b"> Database<br>
+    <input type="radio" name="q6" value="c"> Logic<br>
+    <input type="radio" name="q6" value="d"> Server<br>
+
+    <p>7. Change text color?</p>
+    <input type="radio" name="q7" value="a"> color<br>
+    <input type="radio" name="q7" value="b"> bgcolor<br>
+    <input type="radio" name="q7" value="c"> font-color<br>
+    <input type="radio" name="q7" value="d"> text-color<br>
+
+    <p>8. Text size property?</p>
+    <input type="radio" name="q8" value="a"> text-style<br>
+    <input type="radio" name="q8" value="b"> font-size<br>
+    <input type="radio" name="q8" value="c"> text-size<br>
+    <input type="radio" name="q8" value="d"> font-style<br>
+
+    <p>9. ID selector symbol?</p>
+    <input type="radio" name="q9" value="a"> #<br>
+    <input type="radio" name="q9" value="b"> .<br>
+    <input type="radio" name="q9" value="c"> *<br>
+    <input type="radio" name="q9" value="d"> @<br>
+
+    <p>10. Background color property?</p>
+    <input type="radio" name="q10" value="a"> background-color<br>
+    <input type="radio" name="q10" value="b"> color<br>
+    <input type="radio" name="q10" value="c"> bgcolor<br>
+    <input type="radio" name="q10" value="d"> background-style<br>
+
+    <p>11. JavaScript used for?</p>
+    <input type="radio" name="q11" value="a"> Styling<br>
+    <input type="radio" name="q11" value="b"> Structure<br>
+    <input type="radio" name="q11" value="c"> Database<br>
+    <input type="radio" name="q11" value="d"> Interactivity<br>
+
+    <p>12. Variable keyword?</p>
+    <input type="radio" name="q12" value="a"> int<br>
+    <input type="radio" name="q12" value="b"> var<br>
+    <input type="radio" name="q12" value="c"> string<br>
+    <input type="radio" name="q12" value="d"> float<br>
+
+    <p>13. JS comment?</p>
+    <input type="radio" name="q13" value="a"> ##<br>
+    <input type="radio" name="q13" value="b"> //<br>
+    <input type="radio" name="q13" value="c"> **<br>
+    <input type="radio" name="q13" value="d"> !!<br>
+
+    <p>14. Message box?</p>
+    <input type="radio" name="q14" value="a"> msg()<br>
+    <input type="radio" name="q14" value="b"> alert()<br>
+    <input type="radio" name="q14" value="c"> prompt()<br>
+    <input type="radio" name="q14" value="d"> message()<br>
+
+    <p>15. JavaScript runs on?</p>
+    <input type="radio" name="q15" value="a"> Server<br>
+    <input type="radio" name="q15" value="b"> Client<br>
+    <input type="radio" name="q15" value="c"> Both<br>
+    <input type="radio" name="q15" value="d"> None<br>
+
+    <br>
+    <button onclick="submitQuiz()">Submit</button>
+</div>
+
+<!-- RESULT -->
+<div class="box hide" id="result">
+    <h2>Result</h2>
+    <p id="scoreText"></p>
+    <button onclick="generateCertificate()">Generate Certificate</button>
+</div>
+
+<!-- CERTIFICATE -->
+<div class="box hide" id="cert">
+    <div class="certificate">
+        <h1>Certificate</h1>
+        <div class="line"></div>
+        <h2 id="certName"></h2>
+        <p id="certScore"></p>
+        <div class="seal" id="certStatus"></div>
+        <div class="footer">
+            <span>Date: <span id="certDate"></span></span>
+            <span>VPCSC</span>
+        </div>
+        <br>
+        <button onclick="window.print()">Print</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
