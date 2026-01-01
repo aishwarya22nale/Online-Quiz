@@ -122,7 +122,7 @@
 
 <!-- CERTIFICATE -->
 <div class="box hide" id="cert">
-    <div class="certificate">
+    <div class="certificate" id="certificateArea">
         <h1>Certificate</h1>
         <div class="line"></div>
         <h2 id="certName"></h2>
@@ -133,11 +133,15 @@
             <span>VPCSC</span>
         </div>
         <br>
-        <button onclick="window.print()">Print</button>
+        <button onclick="downloadCertificate()">Download Certificate</button>
     </div>
 </div>
 
-<script src="script.js"></script>
-</body>
+<!-- html2canvas library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+<!-- JavaScript -->
+<script src="script.js"></script>
+
+</body>
 </html>
