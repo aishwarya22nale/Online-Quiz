@@ -1,70 +1,103 @@
-let score = 0;
-let timeLeft = 2 * 60; // 2 minutes
-let timer;
+let studentName = "";
+let timeLeft = 120; // 2 minutes
+let timerInterval;
 
+// Correct answers
+const answers = {
+    q1: "a",
+    q2: "c",
+    q3: "b",
+    q4: "b",
+    q5: "a",
+    q6: "a",
+    q7: "a",
+    q8: "b",
+    q9: "a",
+    q10: "a",
+    q11: "d",
+    q12: "b",
+    q13: "b",
+    q14: "b",
+    q15: "b"
+};
+
+// Start Quiz
 function startQuiz() {
-    if (studentName.value === "") {
+    studentName = document.getElementById("studentName").value;
+    if (studentName === "") {
         alert("Please enter your name");
         return;
     }
-    login.classList.add("hide");
-    quiz.classList.remove("hide");
+
+    document.getElementById("login").classList.add("hide");
+    document.getElementById("quiz").classList.remove("hide");
+
     startTimer();
 }
 
+// Timer
 function startTimer() {
-    timer = setInterval(() => {
+    timerInterval = setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
 
         document.getElementById("time").innerText =
-            `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+            String(minutes).padStart(2, "0") + ":" +
+            String(seconds).padStart(2, "0");
 
-        timeLeft--;
-
-        if (timeLeft < 0) {
-            clearInterval(timer);
-            alert("Time is up! Quiz submitted automatically.");
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
             submitQuiz();
         }
+        timeLeft--;
     }, 1000);
 }
 
+// Submit Quiz
 function submitQuiz() {
-    clearInterval(timer);
-    score = 0;
+    clearInterval(timerInterval);
 
-    const answers = {
-        q1: "a", q2: "c", q3: "b", q4: "b", q5: "a"
-    };
+    let score = 0;
+    let total = Object.keys(answers).length;
 
     for (let q in answers) {
-        if (document.querySelector(`input[name="${q}"]:checked`)?.value === answers[q]) {
+        let selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) {
             score++;
         }
     }
 
-    quiz.classList.add("hide");
-    result.classList.remove("hide");
-    scoreText.innerText = `Score: ${score} / 5`;
+    document.getElementById("quiz").classList.add("hide");
+    document.getElementById("result").classList.remove("hide");
+
+    document.getElementById("scoreText").innerText =
+        `Hello ${studentName}, You scored ${score} out of ${total}`;
+
+    // Certificate data
+    document.getElementById("certName").innerText = studentName;
+    document.getElementById("certScore").innerText =
+        `Score: ${score} / ${total}`;
+
+    document.getElementById("certStatus").innerText =
+        score >= 8 ? "Status: PASS" : "Status: FAIL";
+
+    document.getElementById("certDate").innerText =
+        new Date().toLocaleDateString();
 }
 
+// Show Certificate
 function generateCertificate() {
-    result.classList.add("hide");
-    cert.classList.remove("hide");
-
-    certName.innerText = studentName.value;
-    certScore.innerText = `Score: ${score} / 5`;
-    certDate.innerText = new Date().toLocaleDateString();
-
-    certStatus.innerText = score >= 3 ? "✔ PASSED" : "❌ PARTICIPATED";
+    document.getElementById("result").classList.add("hide");
+    document.getElementById("cert").classList.remove("hide");
 }
 
+// Download Certificate
 function downloadCertificate() {
     html2canvas(document.getElementById("certificateArea")).then(canvas => {
-        const link = document.createElement("a");
+        let link = document.createElement("a");
         link.download = "certificate.png";
         link.href = canvas.toDataURL();
         link.click();
     });
 }
+
