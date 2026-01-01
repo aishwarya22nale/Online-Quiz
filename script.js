@@ -1,10 +1,10 @@
 let score = 0;
-let timeLeft = 75;
+let timeLeft = 2 * 60; // 2 minutes
 let timer;
 
-function startQuiz(){
-    if(studentName.value === ""){
-        alert("Enter your name");
+function startQuiz() {
+    if (studentName.value === "") {
+        alert("Please enter your name");
         return;
     }
     login.classList.add("hide");
@@ -12,48 +12,59 @@ function startQuiz(){
     startTimer();
 }
 
-function startTimer(){
+function startTimer() {
     timer = setInterval(() => {
-        timeLeft--;
-        time.innerText = timeLeft;
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
 
-        if(timeLeft <= 0){
+        document.getElementById("time").innerText =
+            `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+        timeLeft--;
+
+        if (timeLeft < 0) {
             clearInterval(timer);
-            alert("Time Over!");
+            alert("Time is up! Quiz submitted automatically.");
             submitQuiz();
         }
     }, 1000);
 }
 
-function submitQuiz(){
+function submitQuiz() {
     clearInterval(timer);
     score = 0;
 
     const answers = {
-        q1:"a", q2:"c", q3:"b", q4:"b", q5:"a",
-        q6:"a", q7:"a", q8:"b", q9:"a", q10:"a",
-        q11:"d", q12:"b", q13:"b", q14:"b", q15:"c"
+        q1: "a", q2: "c", q3: "b", q4: "b", q5: "a"
     };
 
-    for(let q in answers){
-        if(document.querySelector(`input[name="${q}"]:checked`)?.value === answers[q]){
+    for (let q in answers) {
+        if (document.querySelector(`input[name="${q}"]:checked`)?.value === answers[q]) {
             score++;
         }
     }
 
     quiz.classList.add("hide");
     result.classList.remove("hide");
-    scoreText.innerText = `Score: ${score} / 15`;
+    scoreText.innerText = `Score: ${score} / 5`;
 }
 
-function generateCertificate(){
+function generateCertificate() {
     result.classList.add("hide");
     cert.classList.remove("hide");
 
     certName.innerText = studentName.value;
-    certScore.innerText = `Score: ${score} / 15`;
+    certScore.innerText = `Score: ${score} / 5`;
     certDate.innerText = new Date().toLocaleDateString();
 
-    certStatus.innerText = score >= 8 ? "✔ PASSED" : "❌ FAILED";
+    certStatus.innerText = score >= 3 ? "✔ PASSED" : "❌ PARTICIPATED";
 }
 
+function downloadCertificate() {
+    html2canvas(document.getElementById("certificateArea")).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "certificate.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
