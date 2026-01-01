@@ -1,5 +1,5 @@
 let score = 0;
-let time = 15 * 60;
+let time = 2* 60;
 let timer;
 
 function startQuiz(){
@@ -67,3 +67,4 @@ function generateCertificate(){
 function downloadPDF(id, filename){
     html2pdf().from(document.getElementById(id)).save(filename + ".pdf");
 }
+
